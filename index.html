@@ -1,13 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch a sketch revisit</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-    
-    
+<body style="background-color: #101010; color: white;">
+
+    <button onclick="getGridSize()">Generate Grid</button>
+    <div class="grid-container"></div>
+
+    <script>
+
+        function getGridSize() {
+            const gridSize = prompt("Input desired grid size")
+
+            generateGrid(gridSize);
+        }
+
+        function generateGrid(num) {
+            const gridContainer = document.querySelector(".grid-container")
+
+            // Clear any existing grid (if the function is called more than once)
+            gridContainer.innerHTML = "";
+
+            for (let i = 0; i < (num * num); i++) {
+                const square = document.createElement("div")
+                square.classList.add("square")
+                square.style.width = `${(400 - (2 * (num - 1))) / num}px`;
+                square.style.height = `${(400 - (2 * (num - 1))) / num}px`;
+                square.style.backgroundColor = "rgba(255, 255, 255, 0.021)"
+
+                gridContainer.appendChild(square);
+
+                square.addEventListener("mouseover", () => colorSquares(square))
+            }
+        }
+
+        function colorSquares(square) {
+
+            rgb = getRandomColor();
+
+            square.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+        }
+
+        function getRandomColor() {
+            rgb = [];
+
+            for (let i = 0; i < 3; i++) {
+                rgb.push(Math.floor(Math.random() * 256))
+            }
+
+            return rgb
+        }
+
+    </script>
+
 </body>
+
 </html>
